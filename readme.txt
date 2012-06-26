@@ -25,5 +25,10 @@ specific function declaration or configuration variable.
 
 == Changelog ==
 
+= 1.1 =
+* Fixed a bug where error messages were being assigned incorrect classes
+* `style.css` created, styling moved there
+* Updated documentation
+
 = 1.0 =
 * Initial Release

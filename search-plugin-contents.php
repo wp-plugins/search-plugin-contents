@@ -1,10 +1,10 @@
 <?php
 /*
 	Plugin Name: Search Plugin Contents
-	Plugin URI: 
+	Plugin URI: http://wordpress.org/extend/plugins/search-plugin-contents/
 	Description: Allows developers to search the contents of every file in a given WordPress plugin
-	Version: 1.0
-	Author: Daniel Royston (daniel@itsalaska.com)
+	Version: 1.1
+	Author: ITS Alaska
 	Author URI: http://ITSCanFixThat.com/
 	
     This program is free software: you can redistribute it and/or modify
@@ -64,7 +64,7 @@ class search_plugin_contents {
 		
 	}
 	
-	// starting-point
+	// starting_point
 	// The starting point of the plugin -- determines if the user
 	// has submitted a search or selected a plugin
 	
@@ -96,7 +96,7 @@ class search_plugin_contents {
 		$error_css = "
 		<style>
 		
-			.member-update-dashboard-error {
+			.its-error {
 				width: auto;
 				background-color: #FAD9E6;
 				border: 2px solid #BA004B;
@@ -104,14 +104,14 @@ class search_plugin_contents {
 				margin: 2em 2em 0 0;
 			}
 			
-			.member-update-dashboard-error h1 {
+			.its-error h1 {
 				font-size: larger;
 				color: #BA004B;
 				margin: 0;
 				padding: 0;
 			}
 			
-			.member-update-dashboard-error blockquote {
+			.its-error blockquote {
 				font-family: monospace;
 			}
 		
@@ -119,7 +119,7 @@ class search_plugin_contents {
 		";
 		
 		$error_prefix = "
-		<div class='member-update-dashboard-error'>
+		<div class='its-error'>
 		<h1>Error:</h1>
 		<p>
 			An error has occurred. Please make sure your page was properly formatted and not tampered. If you continue to see this error, notify your website administrator about the issue.
@@ -148,65 +148,8 @@ class search_plugin_contents {
 	
 	function page_start() {
 		
-		// Page styling
-		$css = "
-		#plugin-search-wrap {
-			width: 80%;
-			margin: 1em 0 0 0;
-		}
-		
-		#plugin-search-wrap table tr th {
-			background-image: linear-gradient(bottom, #DBDBDB 0%, #FCFCFC 100%);
-			background-image: -o-linear-gradient(bottom, #DBDBDB 0%, #FCFCFC 100%);
-			background-image: -moz-linear-gradient(bottom, #DBDBDB 0%, #FCFCFC 100%);
-			background-image: -webkit-linear-gradient(bottom, #DBDBDB 0%, #FCFCFC 100%);
-			background-image: -ms-linear-gradient(bottom, #DBDBDB 0%, #FCFCFC 100%);
-
-			background-image: -webkit-gradient(
-				linear,
-				left bottom,
-				left top,
-				color-stop(0, #DBDBDB),
-				color-stop(1, #FCFCFC)
-			);
-		}
-		
-		#plugin-search-wrap table tr td {
-			border-bottom: 1px solid #D6D6D6;
-		}
-		
-		#plugin-search-wrap table tr:last-child td {
-			border-bottom: none;
-		}
-		
-		#plugin-search-wrap table {
-			background-color: #F5F5F5;
-			border: 1px solid #E0E0E0;
-		}
-		
-		#plugin-search-wrap table td:first-child a {
-			color: #000;
-			text-decoration:none;
-			font-weight: bold;
-		}
-		
-		#plugin-search-wrap table td:first-child a:hover {
-			color: #333;
-		}
-		
-		#plugin-search-wrap h1 {
-			font-weight: normal;
-			color: #4D4D4D;
-		}
-		
-		#plugin-search-branding {
-			text-align: right;
-			font-style: italic;
-		}
-		";
-		
-		// Page styling output
-		echo "<style>".$css."</style>";
+		// Page stylesheet
+		echo "<link rel='StyleSheet' type='text/css' href='". plugins_url( 'style.css', __FILE__ ) ."'>";
 		
 		// Start page wrap
 		echo "<div id='plugin-search-wrap'>";
@@ -291,6 +234,9 @@ class search_plugin_contents {
 	
 	function form() {
 		
+        // Validation using str_replace
+        // Protects against LFI
+        
 		$plugin = str_replace('..','',$_GET['plugin']);
 		
 		// Validation using RegEx
@@ -300,7 +246,7 @@ class search_plugin_contents {
 			$this -> error("Possible malformed plugin name!");
 		
 		// Validation using folder checking
-		// Protects against LFI
+		// Prevents opening nonexistant folders
 		
 		if (!file_exists(ABSPATH.'wp-content/plugins/'.$plugin))
 			$this -> error("Plugin specified doesn't exist!");
