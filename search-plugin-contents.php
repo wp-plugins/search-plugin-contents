@@ -3,7 +3,7 @@
 	Plugin Name: Search Plugin Contents
 	Plugin URI: http://wordpress.org/extend/plugins/search-plugin-contents/
 	Description: Allows developers to search the contents of every file in a given WordPress plugin
-	Version: 1.1
+	Version: 1.1.1
 	Author: ITS Alaska
 	Author URI: http://ITSCanFixThat.com/
 	
@@ -217,8 +217,8 @@ class search_plugin_contents {
 			
 			?>
 				<tr>
-					<td><a href="<?=$_SERVER['PHP_SELF'];?>?page=plugin-search&plugin=<?=$file;?>"><?=$plugin['Name'];?></a></td>
-					<td><?=$plugin['Description'];?></td>
+					<td><a href="<?php echo $_SERVER['PHP_SELF'];?>?page=plugin-search&plugin=<?php echo $file;?>"><?php echo $plugin['Name'];?></a></td>
+					<td><?php echo $plugin['Description'];?></td>
 				</tr>
 			<?php
 			
@@ -254,12 +254,12 @@ class search_plugin_contents {
 		echo "<h1>Search Plugin</h1>";
 		
 		?>
-			<form action="<?=$_SERVER['PHP_SELF'];?>?page=plugin-search" method="POST" >
-			<input type="hidden" name="plugin" value="<?=$plugin;?>" />
+			<form action="<?php echo $_SERVER['PHP_SELF'];?>?page=plugin-search" method="POST" >
+			<input type="hidden" name="plugin" value="<?php echo $plugin;?>" />
 				<table>
 					<tr>
 						<td>Plugin:</td>
-						<td><?=$plugin;?></td>
+						<td><?php echo $plugin;?></td>
 					</tr>
 					<tr>
 						<td>Search input:</td>
@@ -345,7 +345,7 @@ class search_plugin_contents {
 			foreach($results as $result) {
 				?>
 					<tr>
-						<td><a href="<?=admin_url('plugin-editor.php?file='.$result);?>"><?=$result;?></a></td>
+						<td><a href="<?php echo admin_url('plugin-editor.php?file='.$result);?>"><?php echo $result;?></a></td>
 					</tr>
 				<?php
 			}

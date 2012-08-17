@@ -2,7 +2,7 @@
 Contributors: itsalaska
 Tags: search, plugin, contents, files
 Requires at least: 2.0.2
-Tested up to: 3.3.2
+Tested up to: 3.4.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
